@@ -21,11 +21,11 @@ Supporting modules: `services/modeling.py` (Set GP / regular GP with botorch, cr
 
 k_set(X, X') = 1 / (|X| |X'|) * sum_i sum_j k_base(x_i, x'_j)
 
-Because the sum runs over all pairs, the kernel (and therefore the posterior mean and variance) does not change when the fillers are reordered. Here the base kernel k_base is an RBF kernel (not Matérn) with a per-feature (ARD) lengthscale shared by both fillers, wrapped in a scale kernel; the GP is built with BoTorch and fit by marginal likelihood (`MeanSetKernel` and `_build_set_gp_covar_module` in `services/modeling.py`). Predictions come with a predictive standard deviation, which is used for the +/-1 sigma bars in the parity plot.
+Because the sum runs over all pairs, the kernel (and therefore the posterior mean and variance) does not change when the fillers are reordered. Here the base kernel k_base is an RBF kernel with a per-feature (ARD) lengthscale shared by both fillers, wrapped in a scale kernel; the GP is built with BoTorch and fit by marginal likelihood (`MeanSetKernel` and `_build_set_gp_covar_module` in `services/modeling.py`). Predictions come with a predictive standard deviation, which is used for the +/-1 sigma bars in the parity plot.
 
-**Regular GP (baseline).** A standard BoTorch `SingleTaskGP` on the same 10 features (min-max scaled), with a Matérn kernel (the BoTorch default). It is accurate but not order-invariant, which is what the permutation test in Fig. 6 demonstrates.
+**Regular GP (baseline).** A standard BoTorch `SingleTaskGP` on the same 10 features (min-max scaled), with a Matérn kernel. It is accurate but not order-invariant, which is what the permutation test in Fig. 6 demonstrates.
 
-**Evaluation.** Accuracy is the pooled out-of-fold R^2 from 20-fold cross-validation (Fig. 4c, 6a). Permutation invariance is tested on a 70/30 split (197 train, 85 test) by swapping the filler-1 and filler-2 feature blocks of the test samples; the score is the fraction of test points whose prediction changes by less than 0.01 (Fig. 6b-d). Interpretation uses KernelSHAP (Fig. 4d) and Sobol total-order indices (Fig. 4e) computed on the fitted Set GP (`services/sensitivity.py`).
+**Evaluation.** Accuracy is the pooled out-of-fold R^2 from 20-fold cross-validation. Permutation invariance is tested on a 70/30 split (197 train, 85 test) by swapping the filler-1 and filler-2 feature blocks of the test samples; the score is the fraction of test points whose prediction changes by less than 0.01. Interpretation uses KernelSHAP and Sobol total-order indices computed on the fitted Set GP (`services/sensitivity.py`).
 
 ## Run
 
