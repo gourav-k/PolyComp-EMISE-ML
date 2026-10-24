@@ -1,0 +1,15 @@
+# Tested with Python 3.11.9
+numpy==1.26.4
+pandas==2.1.4
+openpyxl==3.0.10
+scikit-learn==1.6.1
+scipy==1.16.0
+matplotlib==3.8.4
+torch==2.11.0
+gpytorch==1.11
+botorch==0.11.0
+shap==0.49.1
+SALib==1.5.0
+# Optional: only used by services.modeling.run_model_comparison, not by the figure script
+# xgboost==2.1.4
+# tabpfn==7.1.1   (needs a TABPFN_TOKEN environment variable)

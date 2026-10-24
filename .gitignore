@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.figure_cache.pkl
+prep_outputs/
+.DS_Store
+paper-figures/
+data/**/*.xlsx
